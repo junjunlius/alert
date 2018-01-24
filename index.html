@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.dialog {
+    width: 350px;
+    height: 350px;
+    border: 1px solid #ccc;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.dialog-title {
+    height: 35px;
+    line-height: 35px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.dialog-content {
+    padding: 15px;
+}
+
+.float-right {
+    float: right;
+}
+
+.mr15 {
+    margin-right: 15px;
+}
+.success{
+    position: absolute;
+    left: 15px;
+    top: 150px;
+}
+
+.mark {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, .3);
+}
+    </style>
+</head>
+<body>
+
+    <script>
+class Dialog {
+    constructor(title = "标题党", content = "今天是美好的第一天!") {
+        this.title = title;
+        this.content = content;
+        this.init();
+    }
+    init() {
+        this.createWrap();
+        this.createmark();
+    }
+    addEvent() {
+        let span = document.querySelectorAll(".float-right")[0];
+        let btn = document.querySelectorAll(".success")[0];
+        span.addEventListener("click", (event) => {
+            this.hide();
+        });
+        btn.addEventListener("click", (event) => {
+            this.hide();
+        });
+    }
+    show() {
+
+    }
+    hide() {
+        let oDiv = document.querySelectorAll(".dialog")[0];
+        oDiv.style.display = "none";
+    }
+    createButton(txt, cls) {
+        let btn = document.createElement("button");
+        btn.innerHTML = txt;
+        btn.className = cls
+        return btn;
+    }
+    createTitle() {
+        let ol = document.createElement("ol");
+        let span = document.createElement("span");
+
+        ol.className = "dialog-title";
+        ol.innerHTML = this.title;
+        span.className = "float-right mr15";
+        span.innerHTML = "X";
+        ol.append(span);
+        return ol;
+    }
+    createContent() {
+        let ul = document.createElement("ul");
+        let btnSuccess = this.createButton("确定", "success");
+        ul.className = "dialog-content";
+        ul.innerHTML = this.content;
+        ul.append(btnSuccess);
+
+        return ul;
+    }
+    createWrap() {
+        let oDiv = document.createElement("div");
+        let oTit = this.createTitle();
+        let oCon = this.createContent();
+
+        oDiv.append(oTit);
+        oDiv.append(oCon);
+        oDiv.className = "dialog";
+
+        document.body.append(oDiv);
+        this.addEvent();
+    }
+        createmark() {
+        let mark = document.createElement('div');
+        mark.className = 'mark';
+        document.body.append(mark);
+        return mark;
+    }
+}
+
+
+let dialog = new Dialog();
+  
+
+  </script>
+    
+</body>
+</html>
